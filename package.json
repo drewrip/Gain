@@ -1,19 +1,19 @@
 {
   "name": "gain",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "mongodb": "^3.1.6",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5"
-  },
+  "version": "1.0.0",
+  "description": "Gain: Virtual Studio",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drewrip/Gain.git"
+  },
+  "author": "Rohan Mathur & Drew Ripberger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drewrip/Gain/issues"
+  },
+  "homepage": "https://github.com/drewrip/Gain#readme"
 }
