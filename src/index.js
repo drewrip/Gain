@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
+import { Route, NavLink } from "react-router";
+import { BrowserRouter } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import Home from './src/pages/Home';
-import Studio from './src/pages/Studio';
-import Member from './src/pages/Member'
-
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false })
+import Studio from './pages/Studio/Studio.js';
+import Member from './pages/Member/Member.js'
+import routes from './routes.js';
 
 ReactDOM.render(
-  <Router history={appHistory} onUpdate={() => window.scrollTo(0, 0)}>
-    <Route path="/" component={ Home } />
-    <Route path="/studio" component={ Studio } />
-    <Route path="/member" component={ Member } />
-  </Router>,
-  document.getElementById('root'));
+  <div>
+    <BrowserRouter routes={routes}>
+      <App />
+    </BrowserRouter>
+  </div>,
+  document.getElementById('root')
+);
 registerServiceWorker();
