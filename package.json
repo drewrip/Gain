@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/drewrip/Gain/issues"
   },
-  "homepage": "https://github.com/drewrip/Gain#readme"
+  "homepage": "https://github.com/drewrip/Gain#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.6"
+  }
 }
