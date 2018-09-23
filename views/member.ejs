@@ -3,9 +3,10 @@
 
     <audio id="player" controls></audio>
 </html>
+<script src="../socket.io-stream.js"></script>
 <script>
+    var socket = io.connect('localhost:8181');
     var player = document.getElementById('player');
-    var Socket = new WebSocket("ws://localhost");
     var handleSuccess = function(stream) {
        var context = new AudioContext();
        var source = context.createMediaStreamSource(stream);
@@ -16,11 +17,16 @@
 
        processor.onaudioprocess = function(e) {
          // Do something with the data, i.e Convert this to WAV
-         Socket.send(e.inputBuffer)
+            var stream = ss.createStream();
+
+            // upload a file to the server.
+            ss(socket).emit(e.inputBuffer, stream, {size: e.inputBuffer.size});
+            ss.createBlobReadStream(e.inputBuffer).pipe(stream);
        };
      };
 
      navigator.mediaDevices.getUserMedia({ audio: true, video: false })
          .then(handleSuccess);
+
 
 </script>
