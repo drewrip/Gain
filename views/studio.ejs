@@ -1,3 +1,14 @@
 <html>
   <h1><%= studioCode %></h1>
+  <audio id="player" controls></audio>
+  <form action="/free" method="post"><input type="button" name="freeCode" value="Close"/></form>
 </html>
+
+<script>
+    var player = document.getElementById('player');
+    var Socket = new WebSocket("ws://localhost");
+    Socket.onmessage = function(e){
+        console.log(e);
+    }
+
+</script>

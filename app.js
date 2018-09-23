@@ -7,7 +7,6 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 
 var availableStudios = [];
-const noStudErr = "Sorry That Studio Doesn't Exist";
 
 // Connection URL
 const url = 'mongodb://localhost:27017';
@@ -27,6 +26,13 @@ function addId(id){
     availableStudios.push(id);
 }
 
+function freeStudio(id){
+    for(i=0;i<availableStudios.length;i++){
+        if(availableStudios[i] == id){
+            availableStudios.splice(i, i+1);
+        }
+    }
+}
 var app = express();
 
 app.use(bodyParser.json());
@@ -46,11 +52,14 @@ app.get("/code", function(req, res){
 
 app.get("/studio", function(req, res){
     const studioKey = randId();
+    addId(studioKey);
+    console.log(availableStudios);
     res.render('studio', {studioCode: studioKey});
 });
 
 app.post("/subCode", function(req, res){
-    console.log("Code Entered: " + req.body.sCode)
+    console.log(availableStudios);
+    console.log("Code Entered: " + req.body.sCode);
     var code = req.body.sCode;
     if(availableStudios.includes(code)){
         res.render("member", {confCode: code});
@@ -60,5 +69,10 @@ app.post("/subCode", function(req, res){
         res.render("code");
     }
 });
-addId("00000")
+
+app.post("/free", function(req, res){
+    freeStudio(req.body.freeCode);
+    console.console.log(availableStudios);
+    console.log("Freed " + req.body.freeCode)
+});
 app.listen(8080);

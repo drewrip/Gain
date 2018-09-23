@@ -19,6 +19,7 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "mongodb": "^3.1.6"
+    "mongodb": "^3.1.6",
+    "socket.io-stream": "^0.9.1"
   }
 }
