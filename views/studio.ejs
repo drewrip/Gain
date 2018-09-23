@@ -2,13 +2,94 @@
   <h1><%= studioCode %></h1>
   <audio id="player" controls></audio>
   <form action="/free" method="post"><input type="button" name="freeCode" value="Close"/></form>
+	
+<head>
+	<title>Mixer</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
 </html>
 
 <script>
-    var player = document.getElementById('player');
-    var Socket = new WebSocket("ws://localhost");
-    Socket.onmessage = function(e){
-        console.log(e);
-    }
+	var player = document.getElementById('player');
+	var Socket = new WebSocket("ws://localhost");
+	Socket.onmessage = function(e){
+		console.log(e);
+	}
 
 </script>
+
+<body>
+
+<script type="text/javascript">
+	function addChannel(){
+		var chanNum = parseInt(document.getElementById("channelNum").innerHTML)+1;
+		var newDiv = document.createElement("div");
+		newDiv.setAttribute("id", "channel"+chanNum);
+		newDiv.setAttribute("class", "col-lg-3 chanDiv");
+		document.getElementById("channelContainer").appendChild(newDiv);
+
+		var slideVal = document.createElement("p");
+		slideVal.setAttribute("id", "slideVal"+chanNum);
+		slideVal.setAttribute("class", "slideVal");
+		slideVal.setAttribute("value", 0);
+
+		var newSlider = document.createElement("input");
+		newSlider.setAttribute("id", "slider"+chanNum);
+		newSlider.setAttribute("type", "range");
+		newSlider.setAttribute("orient", "vertical");
+		newSlider.setAttribute("min", "-10");
+		newSlider.setAttribute("max", "10");
+		
+		newSlider.addEventListener("change", function(){
+			document.getElementById("slideVal"+chanNum).innerHTML = newSlider.value;
+		});
+
+		newSlider.value -= 10;
+
+		document.getElementById("channel"+chanNum).appendChild(newSlider);
+		document.getElementById("channel"+chanNum).appendChild(slideVal);
+
+		document.getElementById("channelNum").innerHTML = chanNum;
+	}
+</script>
+
+<div class="container-fluid" style="padding: 3em">
+	<div class="row">
+		<button onclick="addChannel()" type="button" class="btn">Add Channel</button>
+		<p>Channel Number: <p id="channelNum">0</p></p>		
+	</div>
+	<div class="row" id="channelContainer">
+		
+	</div>
+</div>
+
+</body>
+
+<style type="text/css">
+	input[type=range][orient=vertical]{
+		writing-mode: bt-lr; /* IE */
+		-webkit-appearance: slider-vertical; /* WebKit */
+		height: 20em;
+		width: 100%;
+	}
+
+	.chanDiv {
+		padding-bottom: 1em;
+		padding-top: 2em;
+		background-clip: content-box;
+		background-color: rgba(211,211,211,0.6);
+		border-radius: 3em;
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+
+	.slideVal{
+		padding-top: 1em;
+		text-align: center;
+	}
+</style>
